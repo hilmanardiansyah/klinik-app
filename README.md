@@ -23,6 +23,8 @@ git clone https://github.com/hilmanardiansyah/klinik-app.git
 cd klinik-app
 
 composer install
+npm install && npm run dev
+
 cp .env.example .env
 php artisan key:generate
 
