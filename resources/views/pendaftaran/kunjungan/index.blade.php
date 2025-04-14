@@ -15,6 +15,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Pasien</th>
                         <th>Dokter</th>
                         <th>Jenis Kunjungan</th>
@@ -26,6 +27,7 @@
                     <!-- Perulangan untuk menampilkan data kunjungan -->
                     @forelse($kunjungans as $k)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <!-- Menampilkan nama pasien -->
                             <td>{{ $k->pasien->nama ?? '-' }}</td>
                             <!-- Menampilkan nama dokter -->

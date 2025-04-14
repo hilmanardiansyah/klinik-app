@@ -15,12 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,12 +26,17 @@ Route::get('/dashboard', function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 Route::middleware(['auth','role:admin'])->prefix('admin')->as('admin.')->group(function () {
+    Route::get('dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
     Route::resource('wilayah', App\Http\Controllers\Admin\WilayahController::class);
     Route::resource('pegawai', App\Http\Controllers\Admin\PegawaiController::class);
     Route::resource('tindakan', App\Http\Controllers\Admin\TindakanController::class);
     Route::resource('obat', App\Http\Controllers\Admin\ObatController::class);
     Route::resource('user', App\Http\Controllers\Admin\UserController::class);
+    Route::get('laporan/export', [App\Http\Controllers\Admin\LaporanController::class, 'exportPdf'])->name('laporan.export');
     Route::resource('laporan', App\Http\Controllers\Admin\LaporanController::class);
+    
 });
 
 Route::middleware(['auth', 'role:petugas_pendaftaran'])->prefix('pendaftaran')->as('pendaftaran.')->group(function() {

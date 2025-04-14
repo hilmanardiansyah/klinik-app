@@ -12,9 +12,5 @@
 				</a>
 			</li>
 		</ul>
-		<div class="search-element">
-			<input type="text" class="form-control" placeholder="Search products..." />
-			<button class="btn" type="submit"><i data-feather="search"></i></button>
-		</div>
 	</div>
 </nav>
