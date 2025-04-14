@@ -22,17 +22,24 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 Route::middleware(['auth','role:admin'])->prefix('admin')->as('admin.')->group(function () {
     Route::resource('wilayah', App\Http\Controllers\Admin\WilayahController::class);
     Route::resource('pegawai', App\Http\Controllers\Admin\PegawaiController::class);
     Route::resource('tindakan', App\Http\Controllers\Admin\TindakanController::class);
     Route::resource('obat', App\Http\Controllers\Admin\ObatController::class);
     Route::resource('user', App\Http\Controllers\Admin\UserController::class);
+    Route::resource('laporan', App\Http\Controllers\Admin\LaporanController::class);
 });
 
+Route::middleware(['auth', 'role:petugas_pendaftaran'])->prefix('pendaftaran')->as('pendaftaran.')->group(function() {
+    Route::get('dashboard', function () {
+        return view('pendaftaran.dashboard');
+    })->name('dashboard');
+    Route::resource('pasien', App\Http\Controllers\Pendaftaran\PasienController::class);
+});
 require __DIR__.'/auth.php';
