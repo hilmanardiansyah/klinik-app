@@ -30,3 +30,9 @@ php artisan key:generate
 
 php artisan migrate --seed
 php artisan serve
+
+Role	Email	                            Password
+Admin	admin@mail.com	                    password
+Petugas Pendaftaran	petugas@mail.com	    password
+Dokter	dokter@mail.com                    	password
+Kasir	kasir@mail.com	                    password
