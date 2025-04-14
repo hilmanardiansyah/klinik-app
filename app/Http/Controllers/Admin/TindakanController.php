@@ -8,10 +8,18 @@ use App\Models\Tindakan;
 
 class TindakanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tindakans = Tindakan::all();
-        return view('admin.tindakan.index', compact('tindakans'));
+            $query = Tindakan::query();
+        
+            if ($request->filled('search')) {
+                $query->where('nama', 'like', '%' . $request->search . '%');
+            }
+        
+            $tindakans = $query->latest()->paginate(10);
+        
+            return view('admin.tindakan.index', compact('tindakans'));
+        
     }
     public function create()
     {

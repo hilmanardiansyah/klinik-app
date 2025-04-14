@@ -1,19 +1,20 @@
 <x-app-layouts title="Daftar Tindakan">
     <!-- Pencarian Tindakan -->
-    <div class="d-flex justify-content-end mb-4">
-    <form action="{{ route('admin.tindakan.index') }}" method="GET" class="form-inline">
-       {{-- <input type="text" name="search_plate" class="form-control mr-4 col-md" placeholder="Cari Plate Nomer.."> --}}
-        <button type="submit" class="btn btn-icon icon-left btn-primary">Cari</button>
-    </form>
-    </div>
+   
 
     <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <h4>Daftar Tindakan</h4>
-            <a href="{{ route('admin.tindakan.create') }}" class="btn btn-success btn-sm">
-                <i class="fas fa-plus"></i> Tambah Tindakan
-            </a>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Data Tindakan</h4>
+        
+            <div class="d-flex align-items-center gap-2">
+                <form action="{{ route('admin.tindakan.index') }}" method="GET" class="form-inline d-flex">
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control mr-2" placeholder="Cari Tindakan...">
+                    <button class="btn btn-primary">Cari</button>
+                </form>
+                <a href="{{ route('admin.tindakan.create') }}" class="btn btn-success btn-sm ml-2">+ Tambah</a>
+            </div>
         </div>
+         
         @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -47,6 +48,8 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $tindakans->withQueryString()->links() }}
+
         </div>
     </div>
 </x-app-layouts>

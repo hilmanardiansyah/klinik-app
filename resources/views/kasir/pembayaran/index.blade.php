@@ -1,6 +1,13 @@
 <x-app-layouts title="Daftar Tagihan">
     <div class="card">
         <div class="card-header"><h4>Kunjungan Siap Dibayar</h4></div>
+        <div class="d-flex justify-content-between mb-4">
+            <form action="{{ route('kasir.pembayaran.index') }}" method="GET" class="form-inline d-flex">
+                <input type="text" name="search" value="{{ request('search') }}" class="form-control mr-2" placeholder="Cari pasien...">
+                <button class="btn btn-primary">Cari</button>
+            </form>
+        </div>
+        
         <div class="card-body">
             @if(session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
 

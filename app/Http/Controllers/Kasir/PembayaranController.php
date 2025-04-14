@@ -10,16 +10,23 @@ use Illuminate\Support\Facades\DB;
 
 class PembayaranController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // ambil kunjungan yang sudah ada diagnosis tapi belum dibayar
-        $kunjungans = Kunjungan::with(['pasien', 'tindakans', 'obats'])
+        $query = Kunjungan::with(['pasien', 'tindakans', 'obats'])
             ->whereNotNull('diagnosis')
-            ->whereDoesntHave('pembayaran')
-            ->get();
-
+            ->whereDoesntHave('pembayaran');
+    
+        if ($request->filled('search')) {
+            $query->whereHas('pasien', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%');
+            });
+        }
+    
+        $kunjungans = $query->latest()->paginate(10);
+    
         return view('kasir.pembayaran.index', compact('kunjungans'));
     }
+    
 
     public function show($id)
     {

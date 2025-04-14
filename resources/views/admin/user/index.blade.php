@@ -1,9 +1,17 @@
 <x-app-layouts title="Data User">
     <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <h4>Data User</h4>
-            <a href="{{ route('admin.user.create') }}" class="btn btn-success btn-sm">+ Tambah</a>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Data User</h4>
+        
+            <div class="d-flex align-items-center gap-2">
+                <form action="{{ route('admin.user.index') }}" method="GET" class="form-inline d-flex">
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control mr-2" placeholder="Cari user...">
+                    <button class="btn btn-primary">Cari</button>
+                </form>
+                <a href="{{ route('admin.user.create') }}" class="btn btn-success btn-sm ml-2">+ Tambah</a>
+            </div>
         </div>
+        
         <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
@@ -35,6 +43,8 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $users->withQueryString()->links() }}
+
         </div>
     </div>
 </x-app-layouts>

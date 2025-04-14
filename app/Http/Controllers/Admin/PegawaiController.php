@@ -9,10 +9,17 @@ use App\Models\User;
 
 class PegawaiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pegawai = Pegawai::with('user')->get();
-        return view('admin.pegawai.index', compact('pegawai'));
+        $query = Pegawai::with('user');
+        
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%')
+                  ->orWhere('jabatan', 'like', '%' . $request->search . '%');
+        }
+    
+        $pegawais = $query->latest()->paginate(10);
+        return view('admin.pegawai.index', compact('pegawais'));
     }
     public function create()
     {

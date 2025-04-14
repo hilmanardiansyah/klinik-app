@@ -11,16 +11,24 @@ use Illuminate\Support\Facades\DB;
 
 class PemeriksaanController extends Controller
 {
-    public function index()
-    {
-        $kunjungans = Kunjungan::with('pasien')
-            ->where('dokter_id', auth()->id())
-            ->whereDate('tanggal_kunjungan', now())
-            ->whereNull('diagnosis') // artinya belum diperiksa
-            ->get();
+    public function index(Request $request)
+{
+    $query = Kunjungan::with('pasien')
+        ->where('dokter_id', auth()->id())
+        ->whereDate('tanggal_kunjungan', now())
+        ->whereNull('diagnosis');
 
-        return view('dokter.pemeriksaan.index', compact('kunjungans'));
+    if ($request->filled('search')) {
+        $query->whereHas('pasien', function ($q) use ($request) {
+            $q->where('nama', 'like', '%' . $request->search . '%');
+        });
     }
+
+    $kunjungans = $query->latest()->paginate(10);
+
+    return view('dokter.pemeriksaan.index', compact('kunjungans'));
+}
+
 
     public function edit($id)
     {

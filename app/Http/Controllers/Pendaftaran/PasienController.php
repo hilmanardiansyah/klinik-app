@@ -9,11 +9,20 @@ use App\Models\Wilayah;
 
 class PasienController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pasiens = Pasien::all();
+        $query = Pasien::with('wilayah');
+    
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%')
+                  ->orWhere('no_hp', 'like', '%' . $request->search . '%');
+        }
+    
+        $pasiens = $query->latest()->paginate(10);
+    
         return view('pendaftaran.pasien.index', compact('pasiens'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

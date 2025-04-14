@@ -10,15 +10,22 @@ use App\Models\User;
 
 class KunjunganController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kunjungans = Kunjungan::with('pasien', 'dokter')
-            ->whereDate('tanggal_kunjungan', now())
-            ->orderBy('tanggal_kunjungan', 'desc')
-            ->get();
-
+        $query = Kunjungan::with('pasien', 'dokter')
+                    ->whereDate('tanggal_kunjungan', now());
+    
+        if ($request->filled('search')) {
+            $query->whereHas('pasien', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%');
+            });
+        }
+    
+        $kunjungans = $query->latest()->paginate(10);
+    
         return view('pendaftaran.kunjungan.index', compact('kunjungans'));
     }
+    
 
     public function create()
     {

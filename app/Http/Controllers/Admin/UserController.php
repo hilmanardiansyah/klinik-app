@@ -9,9 +9,17 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::with('roles')->get();
+        $query = User::with('roles'); // tetap pakai eager load
+    
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('email', 'like', '%' . $request->search . '%');
+        }
+    
+        $users = $query->latest()->paginate(10);
+    
         return view('admin.user.index', compact('users'));
     }
 

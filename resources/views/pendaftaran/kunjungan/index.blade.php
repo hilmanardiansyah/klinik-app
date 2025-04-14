@@ -1,10 +1,13 @@
 <x-app-layouts title="Daftar Kunjungan Hari Ini">
     <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <h4>Daftar Kunjungan Pasien</h4>
-            <a href="{{ route('pendaftaran.kunjungan.create') }}" class="btn btn-success btn-sm">+ Daftarkan Kunjungan</a>
+        <div class="d-flex justify-content-between mb-4">
+            <h4 class="mb-0">Data Kunjungan</h4>
+            <form action="{{ route('pendaftaran.kunjungan.index') }}" method="GET" class="form-inline d-flex">
+                <input type="text" name="search" value="{{ request('search') }}" class="form-control mr-2" placeholder="Cari nama pasien...">
+                <button class="btn btn-primary">Cari</button>
+            </form>
         </div>
-
+        
         <div class="card-body">
             <!-- Menampilkan pesan sukses jika ada -->
             @if(session('success'))
@@ -52,6 +55,10 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="mt-3">
+                {{ $kunjungans->withQueryString()->links() }}
+            </div>
+            
         </div>
     </div>
 </x-app-layouts>

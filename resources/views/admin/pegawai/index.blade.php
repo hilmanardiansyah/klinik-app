@@ -1,18 +1,18 @@
 <x-app-layouts title="Daftar Pegawai">
     <!-- Pencarian Pegawai -->
-    <div class="d-flex justify-content-end mb-4">
-    <form action="{{ route('admin.pegawai.index') }}" method="GET" class="form-inline">
-       {{-- <input type="text" name="search_plate" class="form-control mr-4 col-md" placeholder="Cari Plate Nomer.."> --}}
-        <button type="submit" class="btn btn-icon icon-left btn-primary">Cari</button>
-    </form>
-    </div>
-
+    
     <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <h4>Daftar Pegawai</h4>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Daftar Pegawai</h4>
+            <div class="d-flex align-items-center gap-2">
+            <form action="{{ route('admin.pegawai.index') }}" method="GET" class="form-inline d-flex">
+                <input type="text" name="search" value="{{ request('search') }}" class="form-control mr-2" placeholder="Cari Pegawai...">
+                <button class="btn btn-primary">Cari</button>
+            </form>
             <a href="{{ route('admin.pegawai.create') }}" class="btn btn-success btn-sm">
                 <i class="fas fa-plus"></i> Tambah Pegawai
             </a>
+            </div>
         </div>
         @if (session('success'))
         <div class="alert alert-success">
@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pegawai as $p)
+                    @foreach ($pegawais as $p)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $p->nama }}</td>
@@ -49,6 +49,8 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $pegawais->withQueryString()->links() }}
+
         </div>
     </div>
 </x-app-layouts>

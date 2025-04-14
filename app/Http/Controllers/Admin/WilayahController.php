@@ -8,11 +8,21 @@ use App\Models\Wilayah;
 
 class WilayahController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $wilayah = Wilayah::all();
-        return view('admin.wilayah.index', compact('wilayah'));
+        $query = Wilayah::query();
+    
+        // jika ada keyword pencarian
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%')
+                  ->orWhere('jenis', 'like', '%' . $request->search . '%');
+        }
+    
+        $wilayahs = $query->latest()->paginate(10); // paginasi biar rapi
+    
+        return view('admin.wilayah.index', compact('wilayahs'));
     }
+    
 
     public function create()
     {

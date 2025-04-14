@@ -8,11 +8,19 @@ use App\Models\Obat;
 
 class ObatController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $obats = Obat::all();
+        $query = Obat::query();
+    
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%');
+        }
+    
+        $obats = $query->latest()->paginate(10);
+    
         return view('admin.obat.index', compact('obats'));
     }
+    
 
     public function create()
     {
