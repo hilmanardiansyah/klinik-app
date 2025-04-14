@@ -1,51 +1,30 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{ route('customer.dashboard') }}">
-                <img alt="image" src="/assets/logo/logo-rental.png" style="width: 60px; height: 60px" class="header-logo" />
-                <span class="logo-name">Rental-MA</span>
+            <a href="{{ route('kasir.dashboard') }}">
+                {{-- <img alt="image" src="/assets/logo/logo-rental.png" style="width: 60px; height: 60px" class="header-logo" /> --}}
+                <span class="logo-name">KLINIK-APP</span>
             </a>
         </div>
         <ul class="sidebar-menu">
             <!-- Main Navigation -->
             <li class="menu-header">Main Navigation</li>
 
-            <!-- Dashboard Customer -->
-            <li class="dropdown{{ request()->routeIs('customer.dashboard') ? ' active' : '' }}">
-                <a href="{{ route('customer.dashboard') }}" class="nav-link">
+            <!-- Dashboard Kasir -->
+            <li class="dropdown{{ request()->routeIs('kasir.dashboard') ? ' active' : '' }}">
+                <a href="{{ route('kasir.dashboard') }}" class="nav-link">
                     <i data-feather="home"></i><span>Dashboard</span>
                 </a>
             </li>
 
-            <!-- Penyewaan Aktif -->
-            <li class="dropdown{{ request()->routeIs('customer.rentals.active') ? ' active' : '' }}">
-                <a href="{{ route('customer.rentals.active') }}" class="nav-link">
-                    <i data-feather="check-circle"></i><span>Penyewaan Aktif</span>
+            <!-- Pembayaran -->
+            <li class="dropdown{{ request()->routeIs('kasir.pembayaran.index') ? ' active' : '' }}">
+                <a href="{{ route('kasir.pembayaran.index') }}" class="nav-link">
+                    <i data-feather="credit-card"></i><span>Transaksi Pembayaran</span>
                 </a>
             </li>
 
-            <!-- Riwayat Penyewaan -->
-            <li class="dropdown{{ request()->routeIs('customer.rentals.history') ? ' active' : '' }}">
-                <a href="{{ route('customer.rentals.history') }}" class="nav-link">
-                    <i data-feather="archive"></i><span>Riwayat Penyewaan</span>
-                </a>
-            </li>
-
-            <!-- Profil Pengguna -->
-            <li class="dropdown{{ request()->routeIs('customer.profile') ? ' active' : '' }}">
-                <a href="{{ route('customer.profile') }}" class="nav-link">
-                    <i data-feather="user"></i><span>Profil Pengguna</span>
-                </a>
-            </li>
-
-            <!-- Pencarian atau Penyewaan Baru -->
-            <li class="dropdown{{ request()->routeIs('customer.rental.new') ? ' active' : '' }}">
-                <a href="{{ route('customer.rentals.new') }}" class="nav-link">
-                    <i data-feather="search"></i><span>Cari Mobil</span>
-                </a>
-            </li>
-
-            <!-- Logout Section -->
+            <!-- Logout -->
             <li class="dropdown">
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">

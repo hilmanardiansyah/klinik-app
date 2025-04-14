@@ -17,6 +17,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
+    public const HOME = '/'; // ini cuma buat placeholder
+
     public static function redirectTo()
     {
         if (auth()->check()) {

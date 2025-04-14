@@ -6,8 +6,8 @@
         <div class="card-body">
             <p>Selamat datang. Gunakan menu di samping untuk:</p>
             <ul>
-              <li>Menambahkan pasien baru</li>
-              <li>Melihat atau menambahkan kunjungan hari ini</li>
+              <li>Melihat kunjungan yang sudah selesai</li>
+              <li>Menghitung otomatis dari tindakan dan obat</li>
             </ul>
 
         </div>

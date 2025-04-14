@@ -19,8 +19,12 @@
                     <i data-feather="users"></i><span>Data Pasien</span>
                 </a>
             </li>
+            <li class="{{ request()->routeIs('pendaftaran.kunjungan.*') ? 'active' : '' }}">
+                <a href="{{ route('pendaftaran.kunjungan.index') }}" class="nav-link">
+                    <i data-feather="file-text"></i><span>Kunjungan</span>
+                </a>
+            </li>
 
-            {{-- Nanti tambahkan juga menu daftar kunjungan jika sudah --}}
         </ul>
 
         <!-- Logout -->

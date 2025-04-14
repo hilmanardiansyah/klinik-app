@@ -36,7 +36,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $o->nama }}</td>
                         <td>{{ $o->stok }}</td>
-                        <td>{{ $o->user->name ?? '-' }}</td>
+                        <td>Rp {{ number_format($o->harga, 0, ',', '.') }}</td>
                         <td>
                             <a href="{{ route('admin.obat.edit', $o->id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('admin.obat.destroy', $o->id) }}" method="POST" style="display:inline;">
