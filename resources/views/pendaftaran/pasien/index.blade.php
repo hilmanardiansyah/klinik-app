@@ -1,14 +1,16 @@
 <x-app-layouts title="Daftar Pasien">
     <div class="card">
-        <div class="d-flex justify-content-between mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Data Pasien</h4>
+            <div class="d-flex align-items-center gap-2">
             <form action="{{ route('pendaftaran.pasien.index') }}" method="GET" class="form-inline d-flex">
                 <input type="text" name="search" value="{{ request('search') }}" class="form-control mr-2" placeholder="Cari pasien...">
                 <button class="btn btn-primary">Cari</button>
             </form>
             <a href="{{ route('pendaftaran.pasien.create') }}" class="btn btn-success btn-sm">+ Tambah Pasien</a>
         </div>
-        
+    </div>
+
         <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
@@ -47,7 +49,7 @@
             <div class="mt-3">
                 {{ $pasiens->withQueryString()->links() }}
             </div>
-            
+
         </div>
     </div>
 </x-app-layouts>

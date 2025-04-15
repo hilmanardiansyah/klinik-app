@@ -9,6 +9,11 @@
         <ul class="sidebar-menu">
             <!-- Main Navigation -->
             <li class="menu-header">Master Data</li>
+             <li class="dropdown{{ request()->routeIs('admin.dashboard') ? ' active' : '' }}">
+                <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                    <i data-feather="home"></i><span>Dashboard</span>
+                </a>
+            </li>
             <li class="dropdown{{ request()->routeIs('admin.wilayah.*') ? ' active' : '' }}">
                 <a href="{{ route('admin.wilayah.index') }}" class="nav-link">
                     <i data-feather="map-pin"></i><span>Wilayah</span>

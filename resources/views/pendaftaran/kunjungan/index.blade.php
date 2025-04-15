@@ -1,13 +1,15 @@
 <x-app-layouts title="Daftar Kunjungan Hari Ini">
     <div class="card">
-        <div class="d-flex justify-content-between mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Data Kunjungan</h4>
+            <div class="d-flex align-items-center gap-2">
             <form action="{{ route('pendaftaran.kunjungan.index') }}" method="GET" class="form-inline d-flex">
                 <input type="text" name="search" value="{{ request('search') }}" class="form-control mr-2" placeholder="Cari nama pasien...">
                 <button class="btn btn-primary">Cari</button>
             </form>
+            </div>
         </div>
-        
+
         <div class="card-body">
             <!-- Menampilkan pesan sukses jika ada -->
             @if(session('success'))
@@ -58,7 +60,7 @@
             <div class="mt-3">
                 {{ $kunjungans->withQueryString()->links() }}
             </div>
-            
+
         </div>
     </div>
 </x-app-layouts>
